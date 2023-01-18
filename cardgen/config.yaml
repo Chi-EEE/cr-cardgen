@@ -1,5 +1,5 @@
-#cards_data: ./cards.json
-cards_data: /Users/sml/git/cr-api-data-process/docs/json/cards.json
+cards_data: ./cards.json
+# cards_data: /Users/sml/git/cr-api-data-process/docs/json/cards.json
 cards_data_url: https://royaleapi.github.io/cr-api-data/json/cards.json
 src_dir: ./src
 spells_dir: ./card-src-236x300
