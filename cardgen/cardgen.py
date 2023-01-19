@@ -94,13 +94,19 @@ def generate_cards():
         if filename is None:
             logger.warning(f"{name} does not have a corresponding file, continuing…")
             continue
-
+            
         card_src = os.path.join(spells_path, "{}.png".format(filename))
         card_dst_png24 = os.path.join(output_png24_dir, "{}.png".format(name.replace("-", "_")))
         card_image = Image.open(card_src)
 
+        if rarity == "Champion":
+            card_image = card_image.resize((197,250), Image.Resampling.LANCZOS)
+        else:
+            card_image = card_image.resize((235,300), Image.Resampling.LANCZOS)
+            
         # pad card with transparent pixels to be same size as output
         card_size = card_image.size
+        
         card_x = int((size[0] - card_size[0]) / 2)
         card_y = int((size[1] - card_size[1]) / 2)
         card_x1 = card_x + card_size[0]
@@ -126,7 +132,7 @@ def generate_cards():
             else:
                 card_image = im
         elif rarity == "Champion":
-             # scale up image slightly and then crop to same dimension
+            # scale up image slightly and then crop to same dimension
             c_image = card_image
             orig_size = c_image.size
             old_w = orig_size[0]
@@ -175,7 +181,7 @@ def generate_cards():
             
         if enable_dataset_editing:
             # Resize the image
-            card_image = card_image.resize((197,251))
+            card_image = card_image.resize((197,251), Image.Resampling.LANCZOS) # Image.Resampling.NEAREST (More Pixelated)
             
         im = Image.new("RGBA", card_image.size)
         im = Image.alpha_composite(im, card_image)
